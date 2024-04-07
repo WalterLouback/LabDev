@@ -1,0 +1,12 @@
+openapi: '3.0.2'
+info:
+  title: task
+  version: '1.0'
+servers:
+  - url: https://http://localhost:8080/
+paths:
+  /tasks:
+    get:
+      responses:
+        '200':
+          description: OK

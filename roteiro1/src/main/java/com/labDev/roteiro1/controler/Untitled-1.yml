@@ -1,0 +1,99 @@
+openapi: '3.0.2'
+info:
+  title: lista de tarefas
+  description: Documentação lista de tarefas
+  version: '1.0'
+servers:
+  - url: http://localhost:8080
+paths:
+  /tasks:
+    get:
+      summary: Retorna todas as tarefas
+      description: Retorna uma lista de todas as tarefas existentes no sistema.
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+    post:
+      summary: Cria uma nova tarefa
+      description: Cria uma nova tarefa com os dados fornecidos.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+      responses:
+        '201':
+          description: Tarefa criada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+  /tasks/{taskId}:
+    parameters:
+      - in: path
+        name: taskId
+        required: true
+        description: ID da tarefa a ser recuperada
+        schema:
+          type: integer
+    get:
+      summary: Retorna uma tarefa específica
+      description: Retorna os detalhes de uma tarefa específica com base no ID fornecido.
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+    put:
+      summary: Atualiza uma tarefa existente
+      description: Atualiza os detalhes de uma tarefa existente com base no ID fornecido.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+      responses:
+        '200':
+          description: Tarefa atualizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+    delete:
+      summary: Remove uma tarefa existente
+      description: Remove uma tarefa existente com base no ID fornecido.
+      responses:
+        '204':
+          description: Tarefa removida com sucesso
+
+components:
+  schemas:
+    Task:
+      type: object
+      properties:
+        id:
+          type: integer
+        titulo:
+          type: string
+        descricao:
+          type: string
+        dataVencimento:
+          type: string
+          format: date
+        prioridade:
+          type: string
+        status:
+          type: string
+      required:
+        - titulo
+        - descricao
