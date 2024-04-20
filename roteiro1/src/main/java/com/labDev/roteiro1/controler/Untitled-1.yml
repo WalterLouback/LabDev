@@ -4,7 +4,7 @@ info:
   description: Documentação lista de tarefas
   version: '1.0'
 servers:
-  - url: https://54.191.253.12:8080
+  - url: http://localhost:8080
 paths:
   /tasks:
     get:
