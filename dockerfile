@@ -6,7 +6,7 @@ COPY . .
 
 RUN apt-get install maven -y
 
-CD ./roteiro1
+RUN CD ./roteiro1
 
 RUN mvn clean install 
 
