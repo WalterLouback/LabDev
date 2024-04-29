@@ -1,0 +1,24 @@
+@startuml roteiro1
+
+!define Entity(entity, description) class entity as "description" << (E,orchid) >>
+!define Container(container, description) rectangle container as "description" << (C,orange) >>
+!define Component(component, description) rectangle component as "description" << (Component,LightBlue) >>
+!define Person(person, description) circle person as "description" << (P,LightGreen) >>
+
+Person(Usuário, "Usuário")  
+Container(Cliente, "Cliente") {
+    Component(Frontend, "Frontend")
+}
+
+Container(Servidor, "Servidor de Aplicação") {
+    Component(Backend, "Backend")
+    Component(BancoDados, "Banco de Dados")
+}
+
+Usuário -- Frontend : Utiliza
+Frontend --> Backend : Requisição HTTP
+Backend --> BancoDados : Consulta/Gravação
+
+Backend --> Tarefa : Adicionar/Editar/Remover/Visualizar/Concluir
+
+@enduml
