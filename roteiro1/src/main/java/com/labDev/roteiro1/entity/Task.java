@@ -9,6 +9,8 @@ import jakarta.persistence.Entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class Task {
     @Id
@@ -16,6 +18,7 @@ public class Task {
     private Long id;
     private String titulo;
     private String descricao;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date dataVencimento;
     private String prioridade;
     private String status;

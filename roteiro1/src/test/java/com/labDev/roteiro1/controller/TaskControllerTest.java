@@ -10,6 +10,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static org.mockito.Mockito.when;
@@ -28,20 +29,28 @@ public class TaskControllerTest {
 
     @Test
     public void testGetTaskById() throws Exception {
+
+        Date dataVencimento = new Date();
         Task task = new Task();
         task.setId(1L);
         task.setTitulo("Test Task");
         task.setDescricao("Test Description");
-        task.setDataVencimento(new Date());
+        task.setDataVencimento(dataVencimento);
         task.setPrioridade("High");
         task.setStatus("Pending");
-
+    
         when(taskService.getTaskById(1L)).thenReturn(task);
-
+    
         mockMvc.perform(get("/tasks/1")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json("{\"id\":1,\"titulo\":\"Test Task\",\"descricao\":\"Test Description\",\"dataVencimento\":\"" + task.getDataVencimento() + "\",\"prioridade\":\"High\",\"status\":\"Pending\"}"));
+                .andExpect(content().json("{\"id\":1,\"titulo\":\"Test Task\",\"descricao\":\"Test Description\",\"dataVencimento\":\"" + formatDate(task.getDataVencimento()) + "\",\"prioridade\":\"High\",\"status\":\"Pending\"}"));
     }
+    
+    private String formatDate(Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return dateFormat.format(date);
+    }
+    
 }
