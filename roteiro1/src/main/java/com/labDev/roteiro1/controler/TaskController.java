@@ -1,8 +1,4 @@
 package com.labDev.roteiro1.controler;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.labDev.roteiro1.entity.Task;
 import com.labDev.roteiro1.service.TaskService;
 
@@ -24,8 +20,11 @@ public class TaskController {
         return taskService.getAllTasks();
     }
 
-    @PostMapping
+     @PostMapping
     public Task createTask(@RequestBody Task task) {
+        // Lógica para validar e calcular a data de vencimento para tarefas do tipo Data
+        // Lógica para calcular o status com base no tipo e na data de vencimento/prazo
+
         return taskService.createTask(task);
     }
 

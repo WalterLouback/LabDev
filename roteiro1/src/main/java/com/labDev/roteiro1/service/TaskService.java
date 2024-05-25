@@ -17,8 +17,21 @@ public class TaskService {
     }
 
     public Task createTask(Task task) {
+
+        if (task.getTipoTarefa() == null || task.getTipoTarefa().isEmpty()) {
+            task.setTipoTarefa("Livre"); 
+            return taskRepository.save(task);
+        } else if (!task.getTipoTarefa().equals("Data") && !task.getTipoTarefa().equals("Prazo") && !task.getTipoTarefa().equals("Livre")) {
+            throw new IllegalArgumentException("Tipo de tarefa inválido: " + task.getTipoTarefa());
+        }
+        if (!task.getStatus().equals("Concluída")){
+            task.calcularStatus();
+        }
+
+
         return taskRepository.save(task);
     }
+    
 
     public Task updateTask(Long taskId, Task taskDetails) {
         Task task = taskRepository.findById(taskId)

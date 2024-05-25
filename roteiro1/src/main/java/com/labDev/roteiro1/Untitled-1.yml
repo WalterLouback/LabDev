@@ -94,6 +94,16 @@ components:
           type: string
         status:
           type: string
+          enum:
+            - Prevista
+            - "X dias de atraso"
+            - Concluída
+        tipoTarefa:
+          type: string
+          enum:
+            - Data
+            - Prazo
+            - Livre
       required:
         - titulo
         - descricao
