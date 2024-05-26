@@ -1,0 +1,14 @@
+@startuml
+actor User
+boundary TaskController
+control TaskService
+database TaskRepository
+entity Task
+
+User -> TaskController: GET /tasks
+TaskController -> TaskService: getAllTasks()
+TaskService -> TaskRepository: findAll()
+TaskRepository -> TaskService: List<Task>
+TaskService -> TaskController: List<Task>
+TaskController -> User: 200 OK, List<Task>
+@enduml

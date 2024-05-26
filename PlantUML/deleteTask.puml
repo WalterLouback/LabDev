@@ -1,0 +1,15 @@
+@startuml
+actor User
+boundary TaskController
+control TaskService
+database TaskRepository
+entity Task
+
+User -> TaskController: DELETE /tasks/{taskId}
+TaskController -> TaskService: deleteTask(taskId)
+TaskService -> TaskRepository: findById(taskId)
+TaskRepository -> TaskService: Task
+TaskService -> TaskRepository: delete(task)
+TaskService -> TaskController: void
+TaskController -> User: 200 OK
+@enduml

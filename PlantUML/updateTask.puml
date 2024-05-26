@@ -1,0 +1,17 @@
+@startuml
+actor User
+boundary TaskController
+control TaskService
+database TaskRepository
+entity Task
+
+User -> TaskController: PUT /tasks/{taskId}
+TaskController -> TaskService: updateTask(taskId, taskDetails)
+TaskService -> TaskRepository: findById(taskId)
+TaskRepository -> TaskService: Task
+TaskService -> Task: validate tipoTarefa and calcularStatus()
+TaskService -> TaskRepository: save(task)
+TaskRepository -> TaskService: Task
+TaskService -> TaskController: Task
+TaskController -> User: 200 OK, Task
+@enduml
