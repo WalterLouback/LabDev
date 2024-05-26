@@ -1,13 +1,10 @@
 package com.labDev.roteiro1.entity;
 
-
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
 import jakarta.persistence.Entity;
 import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
@@ -20,12 +17,13 @@ public class Task {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date dataVencimento;
     private String prioridade;
-    private String status;
+    private String status = "Prevista"; // Default status value
     private String tipoTarefa = "Livre";
 
     public Long getId() {
         return id;
     }
+
     public String getTipoTarefa() {
         return tipoTarefa;
     }
@@ -33,11 +31,11 @@ public class Task {
     public void calcularStatus() {
         if (this.tipoTarefa.equals("Data") || this.tipoTarefa.equals("Prazo")) {
             if (this.dataVencimento == null) {
-                this.status = "Prevista"; 
+                this.status = "Prevista";
             } else if (this.dataVencimento.before(new Date())) {
-                this.status =  diferencaEmDias(dataVencimento, new Date()) +" dias de atraso"; 
+                this.status = diferencaEmDias(dataVencimento, new Date()) + " dias de atraso";
             } else {
-                this.status = "Prevista"; 
+                this.status = "Prevista";
             }
         } else if (this.tipoTarefa.equals("Livre")) {
             this.status = "Prevista";
@@ -96,5 +94,4 @@ public class Task {
     public void setStatus(String status) {
         this.status = status;
     }
-    
 }

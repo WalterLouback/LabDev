@@ -1,4 +1,5 @@
 package com.labDev.roteiro1.service;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,34 +18,40 @@ public class TaskService {
     }
 
     public Task createTask(Task task) {
-
         if (task.getTipoTarefa() == null || task.getTipoTarefa().isEmpty()) {
-            task.setTipoTarefa("Livre"); 
-            return taskRepository.save(task);
+            task.setTipoTarefa("Livre");
         } else if (!task.getTipoTarefa().equals("Data") && !task.getTipoTarefa().equals("Prazo") && !task.getTipoTarefa().equals("Livre")) {
             throw new IllegalArgumentException("Tipo de tarefa inválido: " + task.getTipoTarefa());
         }
-        if (!task.getStatus().equals("Concluída")){
+
+        if (task.getStatus() == null) {
+            task.setStatus("Prevista");
+        }
+
+        if (!task.getStatus().equals("Concluída")) {
             task.calcularStatus();
         }
 
-
         return taskRepository.save(task);
     }
-    
 
     public Task updateTask(Long taskId, Task taskDetails) {
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new RuntimeException("Tarefa não encontrada com id: " + taskId));
 
-                if (taskDetails.getTipoTarefa() == null || taskDetails.getTipoTarefa().isEmpty()) {
-                    task.setTipoTarefa("Livre"); 
-                } else if (!task.getTipoTarefa().equals("Data") && !task.getTipoTarefa().equals("Prazo") && !task.getTipoTarefa().equals("Livre")) {
-                    throw new IllegalArgumentException("Tipo de tarefa inválido: " + task.getTipoTarefa());
-                }
-                if (!taskDetails.getStatus().equals("Concluída")){
-                    task.calcularStatus();
-                }
+        if (taskDetails.getTipoTarefa() == null || taskDetails.getTipoTarefa().isEmpty()) {
+            task.setTipoTarefa("Livre");
+        } else if (!task.getTipoTarefa().equals("Data") && !task.getTipoTarefa().equals("Prazo") && !task.getTipoTarefa().equals("Livre")) {
+            throw new IllegalArgumentException("Tipo de tarefa inválido: " + task.getTipoTarefa());
+        }
+
+        if (taskDetails.getStatus() == null) {
+            taskDetails.setStatus("Prevista");
+        }
+
+        if (!taskDetails.getStatus().equals("Concluída")) {
+            task.calcularStatus();
+        }
 
         task.setTitulo(taskDetails.getTitulo());
         task.setDescricao(taskDetails.getDescricao());
