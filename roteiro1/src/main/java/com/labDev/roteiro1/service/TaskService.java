@@ -37,11 +37,21 @@ public class TaskService {
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new RuntimeException("Tarefa não encontrada com id: " + taskId));
 
+                if (taskDetails.getTipoTarefa() == null || taskDetails.getTipoTarefa().isEmpty()) {
+                    task.setTipoTarefa("Livre"); 
+                } else if (!task.getTipoTarefa().equals("Data") && !task.getTipoTarefa().equals("Prazo") && !task.getTipoTarefa().equals("Livre")) {
+                    throw new IllegalArgumentException("Tipo de tarefa inválido: " + task.getTipoTarefa());
+                }
+                if (!taskDetails.getStatus().equals("Concluída")){
+                    task.calcularStatus();
+                }
+
         task.setTitulo(taskDetails.getTitulo());
         task.setDescricao(taskDetails.getDescricao());
         task.setDataVencimento(taskDetails.getDataVencimento());
         task.setPrioridade(taskDetails.getPrioridade());
-        task.setStatus(taskDetails.getStatus());
+        task.setTipoTarefa(taskDetails.getTipoTarefa());
+       // task.setStatus(taskDetails.getStatus());
 
         return taskRepository.save(task);
     }

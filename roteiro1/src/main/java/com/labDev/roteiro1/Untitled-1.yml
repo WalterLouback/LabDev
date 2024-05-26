@@ -91,7 +91,11 @@ components:
           type: string
           format: date
         prioridade:
-          type: string
+           type: string
+           enum:
+            - alta
+            - Media
+            - Baixa
         status:
           type: string
           enum:

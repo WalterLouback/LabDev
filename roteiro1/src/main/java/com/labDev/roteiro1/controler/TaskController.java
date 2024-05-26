@@ -22,9 +22,6 @@ public class TaskController {
 
      @PostMapping
     public Task createTask(@RequestBody Task task) {
-        // Lógica para validar e calcular a data de vencimento para tarefas do tipo Data
-        // Lógica para calcular o status com base no tipo e na data de vencimento/prazo
-
         return taskService.createTask(task);
     }
 
