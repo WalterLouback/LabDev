@@ -1,14 +1,12 @@
 import React from 'react';
-import { FaTrash } from 'react-icons/fa';
+import { TodoItem } from './TodoItem';
 
-
-export const TodoList = () => {
+export const TodoList = ({ tasks }) => {
   return (
-    <div className='Todo'>
-      <p className='completed'>Tarefa 1</p>
-      <div>
-        <FaTrash className='delete-icon' />
-      </div>
+    <div className='TodoList'>
+      {tasks.map(task => (
+        <TodoItem key={task.id} task={task} />
+      ))}
     </div>
   );
 };
