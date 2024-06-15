@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 
-export const TodoForm = ({ addTask }) => {
-  const [task, setTask] = useState({
-    titulo: '',
-    descricao: '',
-    dataVencimento: '',
-    prioridade: 'Baixa',
-    status: 'Prevista',
-    tipoTarefa: 'Livre'
-  });
+export const TodoForm = ({ addTask, currentTask, onSave, onEdit }) => {
+  const [task, setTask] = useState(
+    currentTask || {
+      titulo: '',
+      descricao: '',
+      dataVencimento: '',
+      prioridade: 'Baixa',
+      status: 'Prevista',
+      tipoTarefa: 'Livre'
+    }
+  );
 
   const handleChange = (e) => {
     setTask({ ...task, [e.target.name]: e.target.value });
@@ -16,19 +18,16 @@ export const TodoForm = ({ addTask }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addTask(task);
-    setTask({
-      titulo: '',
-      descricao: '',
-      dataVencimento: '',
-      prioridade: 'Baixa',
-      status: 'Prevista',
-      tipoTarefa: 'Livre'
-    });
+    if (currentTask) {
+      onEdit(task);
+    } else {
+      addTask(task);
+    }
   };
 
   return (
     <form className='TodoForm' onSubmit={handleSubmit}>
+      <label>Título</label>
       <input
         type='text'
         name='titulo'
@@ -38,6 +37,7 @@ export const TodoForm = ({ addTask }) => {
         className='todo-input'
         required
       />
+      <label>Descrição</label>
       <input
         type='text'
         name='descricao'
@@ -47,6 +47,7 @@ export const TodoForm = ({ addTask }) => {
         className='todo-input'
         required
       />
+      <label>Data de Vencimento</label>
       <input
         type='date'
         name='dataVencimento'
@@ -54,6 +55,7 @@ export const TodoForm = ({ addTask }) => {
         onChange={handleChange}
         className='todo-input'
       />
+      <label>Prioridade</label>
       <select
         name='prioridade'
         value={task.prioridade}
@@ -62,9 +64,9 @@ export const TodoForm = ({ addTask }) => {
       >
         <option value='Baixa'>Baixa</option>
         <option value='Media'>Média</option>
-        <option value='alta'>Alta</option>
+        <option value='Alta'>Alta</option>
       </select>
-      <button type='submit' className='todo-btn'>Adicionar</button>
+      <button type='submit' className='todo-btn'>{currentTask ? 'Salvar' : 'Adicionar'}</button>
     </form>
   );
 };

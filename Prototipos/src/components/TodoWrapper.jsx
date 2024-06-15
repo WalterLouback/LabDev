@@ -52,11 +52,16 @@ export const TodoWrapper = () => {
     setIsModalOpen(false);
   };
 
+  const handleEdit = (task) => {
+    setCurrentTask(task);
+    setIsModalOpen(true);
+  };
+
   return (
     <div className='TodoWrapper'>
       <h1>Lista de Tarefas</h1>
       <button onClick={openModal} className='open-modal-btn'>Adicionar Tarefa</button>
-      <TodoList tasks={tasks} />
+      <TodoList tasks={tasks} onEdit={handleEdit} />
       {isModalOpen && (
         <TodoModal
           isOpen={isModalOpen}
@@ -68,4 +73,4 @@ export const TodoWrapper = () => {
       )}
     </div>
   );
-}
+};

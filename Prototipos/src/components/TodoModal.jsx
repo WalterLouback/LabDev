@@ -4,14 +4,16 @@ import Modal from 'react-modal';
 Modal.setAppElement('#root');
 
 export const TodoModal = ({ isOpen, onClose, onSave, currentTask, onEdit }) => {
-  const [task, setTask] = useState({
-    titulo: '',
-    descricao: '',
-    dataVencimento: '',
-    prioridade: 'Baixa',
-    status: 'Prevista',
-    tipoTarefa: 'Livre'
-  });
+  const [task, setTask] = useState(
+    currentTask || {
+      titulo: '',
+      descricao: '',
+      dataVencimento: '',
+      prioridade: 'Baixa',
+      status: 'Prevista',
+      tipoTarefa: 'Livre'
+    }
+  );
 
   useEffect(() => {
     if (currentTask) {
@@ -50,6 +52,7 @@ export const TodoModal = ({ isOpen, onClose, onSave, currentTask, onEdit }) => {
     >
       <h2>{currentTask ? 'Editar Tarefa' : 'Adicionar Tarefa'}</h2>
       <form onSubmit={handleSubmit}>
+        <label>Título</label>
         <input
           type='text'
           name='titulo'
@@ -59,6 +62,7 @@ export const TodoModal = ({ isOpen, onClose, onSave, currentTask, onEdit }) => {
           className='todo-input'
           required
         />
+        <label>Descrição</label>
         <input
           type='text'
           name='descricao'
@@ -68,6 +72,7 @@ export const TodoModal = ({ isOpen, onClose, onSave, currentTask, onEdit }) => {
           className='todo-input'
           required
         />
+        <label>Data de Vencimento</label>
         <input
           type='date'
           name='dataVencimento'
@@ -75,6 +80,7 @@ export const TodoModal = ({ isOpen, onClose, onSave, currentTask, onEdit }) => {
           onChange={handleChange}
           className='todo-input'
         />
+        <label>Prioridade</label>
         <select
           name='prioridade'
           value={task.prioridade}
@@ -85,9 +91,7 @@ export const TodoModal = ({ isOpen, onClose, onSave, currentTask, onEdit }) => {
           <option value='Media'>Média</option>
           <option value='Alta'>Alta</option>
         </select>
-        <button type='submit' className='todo-btn'>
-          {currentTask ? 'Salvar' : 'Adicionar'}
-        </button>
+        <button type='submit' className='todo-btn'>{currentTask ? 'Salvar' : 'Adicionar'}</button>
       </form>
       <button onClick={onClose} className='todo-btn close-btn'>Fechar</button>
     </Modal>
