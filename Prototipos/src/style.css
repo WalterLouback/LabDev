@@ -32,7 +32,20 @@ h1 {
   background: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 90%;
-  max-width: 900px;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.TaskColumns {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.TaskColumn {
+  width: 30%;
 }
 
 .TodoList {
@@ -44,6 +57,9 @@ h1 {
   margin-bottom: 0.5rem;
   padding: 1rem;
   border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .todo-input {
@@ -108,4 +124,34 @@ h1 {
   padding: 0.5rem;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.details-btn {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.complete-btn {
+  background: #28a745;
+  color: #fff;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.reopen-btn {
+  background: #ffc107;
+  color: #fff;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 0.5rem;
 }

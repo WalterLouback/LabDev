@@ -52,13 +52,16 @@ public class TaskService {
         if (!taskDetails.getStatus().equals("Concluída")) {
             task.calcularStatus();
         }
+        else{
+            task.setStatus(taskDetails.getStatus());
+        }
 
         task.setTitulo(taskDetails.getTitulo());
         task.setDescricao(taskDetails.getDescricao());
         task.setDataVencimento(taskDetails.getDataVencimento());
         task.setPrioridade(taskDetails.getPrioridade());
         task.setTipoTarefa(taskDetails.getTipoTarefa());
-       // task.setStatus(taskDetails.getStatus());
+       // 
 
         return taskRepository.save(task);
     }

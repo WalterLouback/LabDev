@@ -1,13 +1,17 @@
 import React from 'react';
 
-export const TodoItem = ({ task, onEdit }) => {
+export const TodoItem = ({ task, onTaskClick, onUpdateStatus }) => {
   return (
     <div className='TodoItem'>
       <h3>{task.titulo}</h3>
       <p>{task.descricao}</p>
-      <p>Data de Vencimento: {task.dataVencimento}</p>
-      <p>Prioridade: {task.prioridade}</p>
-      <button onClick={() => onEdit(task)} className='edit-btn'>Editar</button>
+      <button onClick={() => onTaskClick(task.id)} className='details-btn'>Detalhes</button>
+      {task.status !== 'Concluída' && (
+        <button onClick={() => onUpdateStatus(task, 'Concluída')} className='complete-btn'>Concluir</button>
+      )}
+      {task.status === 'Concluída' && (
+        <button onClick={() => onUpdateStatus(task, 'Prevista')} className='reopen-btn'>Reabrir</button>
+      )}
     </div>
   );
 };
